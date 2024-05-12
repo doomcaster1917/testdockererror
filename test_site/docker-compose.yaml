@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:15
+    container_name: db_app
+    environment:
+      POSTGRES_PASSWORD: 89908990aSa
+      POSTGRES_PORT: 5432
+      POSTGRES_NAME: RWP
+      POSTGRES_USER: postgres
+      POSTGRES_PASS: 89908990aSa
+
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+
+    container_name: django_app
+    ports:
+      - 9999:8000
+
+    command: #"/django_app/docker/app.sh"
+      - python ./manage.py migrate
+    depends_on:
+      - db
